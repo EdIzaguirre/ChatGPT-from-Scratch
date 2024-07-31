@@ -60,7 +60,7 @@ def decode(line):
 data = torch.tensor(encode(text), dtype=torch.long)
 
 # Generating train/val split
-n = int(0.9*len(data))
+n = int(0.9 * len(data))
 train_data = data[:n]
 val_data = data[n:]
 
@@ -74,8 +74,8 @@ def get_batch(split):
     # Goes one random number at a time, creating a list of data
     # starting from that number up to random_num+block_size
     # Then they are all concatenated horizontally to create a batch
-    x = torch.stack([data[i:i+block_size] for i in ix])
-    y = torch.stack([data[i+1:i+block_size+1] for i in ix])
+    x = torch.stack([data[i:i + block_size] for i in ix])
+    y = torch.stack([data[i + 1:i + block_size + 1] for i in ix])
     x, y = x.to(device), y.to(device)
     return x, y
 
@@ -235,8 +235,8 @@ class GPTLanguageModel(nn.Module):
             # .view() in PyTorch is like .reshape() in TensorFlow
             # Reshaping here to work properly with the cross_entropy
             # function from PyTorch
-            logits = logits.view(B*T, C)
-            targets = targets.view(B*T)
+            logits = logits.view(B * T, C)
+            targets = targets.view(B * T)
 
             loss = F.cross_entropy(logits, targets)
         return logits, loss
